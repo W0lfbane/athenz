@@ -3,6 +3,12 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ template "athenz-zts.fullname" . }}
+  # Kubernetes will automatically place pods in the "default" namespace if one is not specified
+  # Yahoo devs may be deploying to specific namespaces using cli commands (e.g. "--namespace <name>")
+  # however it is more reliable and secure to explicitly define it within the YAML to avoid mistakes
+  namespace: {{ template "athenz-zts.fullname" . }} 
+  # ^ This is a placeholder value, update as you see fit ^ 
+  # # #
   labels:
     app: "{{ template "athenz-zts.name" . }}"
     chart: "{{ template "athenz-zts.chart" . }}"
